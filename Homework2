@@ -1,0 +1,105 @@
+Attribute VB_Name = "Module3"
+
+'Instructions
+
+'Create a script that loops through all the stocks for one year and outputs the following information:
+'The ticker symbol
+'Yearly change from the opening price at the beginning of a given year to the closing price at the end of that year.
+'The percentage change from the opening price at the beginning of a given year to the closing price at the end of that year.
+'The total stock volume of the stock.
+'NOTE
+'Make sure to use conditional formatting that will highlight positive change in green and negative change in red.
+
+Sub Homework2()
+
+
+ 
+    Dim ws As Worksheet
+    Dim ticker As String
+    Dim volume As Integer
+    Dim year_open As Double
+    Dim year_close As Double
+    Dim yearly_change As Double
+    Dim percent_change As Double
+    Dim Summary_Table_Row As Integer
+    Dim Top_Ticker As String
+    
+
+For Each ws1 In Worksheets
+ 
+ [I1:L1] = [{"Ticker","Yearly Change","Percent Change","Total Stock Volume"}]
+
+Summary_Table_Row = 2
+
+For i = 2 To ws.UsedRange.Rows.Count
+If ws.Cells(i + 1, 1).Value <> ws.Cells(i, 1).Value Then
+
+ticker = ws.Cells(i, 1).Value
+
+ws.Cells(Summary_Table_Row, 9).Value = ticker
+
+volume = 0
+
+End If
+
+
+
+
+For Each ws2 In ThisWorkbook.Worksheets
+
+Summary_Table_Row = 2
+
+        For l = 2 To ws.UsedRange.Rows.Count
+If ws.Cells(l + 1, 1).Value <> ws.Cells(l, 1).Value Then
+
+volume = ws.Cells(l, 1).Value
+
+ws.Cells(Summary_Table_Row, 7).Value = volume
+
+volume = 0
+
+End If
+
+ws.Columns("K").NumberFormat = "0.00%"
+
+
+For Each ws3 In ThisWorkbook.Worksheets
+
+Dim k As Range
+Dim g As Long
+Dim c As Long
+Dim color_cells As Range
+
+Set k = ws.Range("J2", Range(J2).End(xlDown))
+c = k.Cells.Count
+
+
+
+
+For Each ws In ThisWorkbook.Worksheets
+
+For g = 1 To c
+Set color_cell = k(g)
+Select Case color_cell
+
+Case Is >= 0
+With color_cell
+.Interior.Color = vbGreen
+End With
+
+Case Is >= 0
+With color_cell
+.Interior.Color = vbRed
+End With
+
+
+End Select
+
+Next g
+
+Next ws
+
+
+
+
+End Sub
